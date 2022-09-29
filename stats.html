@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/img/icon_amazing_events.png" type="image/x-icon">
+    <title>Stats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body id="app">
+    <header class="w-100 bg-nigga">
+        <nav class="navbar navbar-expand-lg container bg-nigga">
+            <div class="container-fluid">
+                <a class="navbar-brand col-md-7 d-flex" href="./index.html">
+                    <img src="./assets/img/logo_amazing_events.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                          <a class="nav-link" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./upcoming-events.html">Upcoming Events</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./past-events.html">Past Events</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" aria-current="page" href="#">Stats</a>
+                        </li>
+                      </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <main  class="">
+        <div class="w-100 carrousel-container">
+            <div class="d-flex flex-row container justify-content-between align-items-center carrousel px-2">
+                <div>
+                    <a href="./contact.html">
+                        <i class="bi bi-caret-left-fill"></i>
+                    </a>
+                </div>
+                <div class="h1">
+                    <h1>Stats</h1>
+                </div>
+                <div>
+                    <a href="./index.html">
+                        <i class="bi bi-caret-right-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container d-flex flex-column justify-content-around align-items-center mt-4">
+            <div  class="container container-stats" id="statsContainer">
+                <h2 class="tableTitle text-center">Events Statistics</h2>
+                <table class="table responsive">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Event with the highest percentage of attendance</th>
+                            <th class="text-center">Event with the lowest percentage of attendance</th>
+                            <th class="text-center">Event with larger larger capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="eventsStats">
+                            <td v-for="(event, i) in statsEvents">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <div class="card card-stats">
+                                            <img :src="event.image" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <div class="card-header">
+                                                    <p>{{event.category}}</p>
+                                                    <h5>{{event.name}}</h5>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                                    <span>{{i<=1 ? "Attendance Percentage" : "Capacity"}}</span>
+                                                    <p class="price">{{i<=1 ? percentage.format(event.assistance / event.capacity) : numberFormat.format(event.capacity)}}</p>
+                                                    <a :href="'./detail.html?id='+event._id" class="">
+                                                        <span class="link"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class=" container-stats">
+                <h2 class="tableTitle text-center">Upcoming Events statistics by category</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Categories</th>
+                            <th class="text-center">Estimated revenues</th>
+                            <th class="text-center">Estimated percentage of attendance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="upcomingStats">
+                        <tr v-for="stat in statsUpcoming">
+                            <td class="text-center">{{stat[0]}}</td>
+                            <td class="text-center">{{moneyFormat.format(stat[1])}}</td>
+                            <td class="text-center">{{percentage.format(stat[2])}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container container-stats">
+                <h2 class="tableTitle text-center">Past Events statistics by category</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Categories</th>
+                            <th class="text-center">Revenues</th>
+                            <th class="text-center">Percentage of attendance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pastStats">
+                        <tr v-for="stat in statsPast">
+                            <td class="text-center">{{stat[0]}}</td>
+                            <td class="text-center">{{moneyFormat.format(stat[1])}}</td>
+                            <td class="text-center">{{percentage.format(stat[2])}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="">
+        <div class="container align-items-center d-flex">
+            <div class="d-flex social fs-1 col-5 align-items-center justify-content-center">
+                <a href="#" target="_blank">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+            </div>
+            <div class="d-flex w-100 justify-content-center align-items-center">
+                <p class="m-0">Copyright</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous">
+    </script>
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="./assets/scripts/vue.js"></script>
+</body>
+</html>
+
+
