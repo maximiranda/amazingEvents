@@ -2,7 +2,7 @@
 
 https://maximiranda.github.io/amazingEvents/index.html
 
-Project consuming an external API and implementing the entire front
+Full responsive project consuming an external API and implementing the entire front
 
 
 ## Tech Stack
